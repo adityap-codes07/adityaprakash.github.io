@@ -1,6 +1,6 @@
 # Aditya Prakash — Research Engineer & Software Engineer Portfolio
 
-A minimal, high-performance, responsive single-page portfolio website designed with clean semantic HTML, modern CSS design tokens, and a custom interactive canvas animation. Built to showcase academic research foundations, open-source contributions, engineering projects, and a custom built-in interactive terminal simulator.
+A minimal, high-performance, responsive single-page portfolio website designed with clean semantic HTML, modern CSS design tokens, and a custom interactive canvas animation. Built to showcase academic research foundations, open-source contributions, engineering projects, and a custom-built interactive terminal simulator.
 
 ---
 
@@ -9,8 +9,8 @@ A minimal, high-performance, responsive single-page portfolio website designed w
 * **System-Aware Dark Mode:** Uses CSS variables mapped to `[data-theme="dark"]` for instantaneous theme switching with smooth transitions.
 * **Interactive Neural Canvas:** An HTML5 `<canvas>` rendering engine animating a dynamic graphical network structure that acts as a focal point on the hero screen.
 * **Bespoke Grid Layouts:** Responsive layouts crafted with strict CSS Grid and Flexbox mechanics—completely free of bloated framework overhead.
-* **Interactive Easter Egg Terminal:** Built-in hidden command-line simulation screen allows tech-savvy visitors to query your profile directly using shell commands.
-* **Fully Scannable Sections:** Deduplicated, high-impact modules for Engineering Work, SymPy Open-Source Contributions, and Academic Research Focuses.
+* **Interactive Easter Egg Terminal:** A built-in hidden command-line simulation screen allows tech-savvy visitors to query your profile directly using shell commands.
+* **Fully Scannable Sections:** Deduplicated, high-impact modules for engineering work, SymPy open-source contributions, and academic research focuses.
 
 ---
 
@@ -72,4 +72,7 @@ Performance Safety Guard: Implements @media (prefers-reduced-motion: reduce) rul
 Network Preconnections: Explicitly uses preconnect tags to initialize structural handshakes with Google Font delivery channels early in the engine parsing loop.
 
 ## 📄 License
-This portfolio codebase is open source and available under the MIT License. Feel free to customize and use it as your own!
+
+© 2025 Aditya Prakash. All Rights Reserved.
+
+This source code is proprietary and not open source. No part of this codebase may be copied, modified, distributed, or used — in whole or in part — without explicit written permission from the author.
