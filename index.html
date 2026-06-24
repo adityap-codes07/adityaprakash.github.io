@@ -13,6 +13,7 @@
         content="Exploring the foundations of machine intelligence. SymPy Contributor · AI Engineer · CSBS @ CVR College of Engineering." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -1157,7 +1158,7 @@
 
         .learning-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 16px;
             margin-top: 48px;
         }
@@ -1298,6 +1299,13 @@
 
         .form-field textarea {
             height: 120px;
+        }
+        /* Responsive Media Query Breakpoint */
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
         }
 
         /* ─── Footer ─────────────────────────────────────────────────── */
@@ -1543,26 +1551,14 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-
-            *,
-            *::before,
-            *::after {
+            *, *::before, *::after {
                 animation: none !important;
                 transition: none !important;
             }
-
-            .fade-in {
-                opacity: 1;
-                transform: none;
-            }
+            .fade-in { opacity: 1; transform: none; }
         }
+        
     </style>
-
-    <!-- SEO -->
-    <meta name="description"
-        content="Aditya Prakash | Computer Science & Business Systems undergraduate interested in AI, Algorithms, Systems, and Software Engineering.">
-
-    <meta name="author" content="Aditya Prakash">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Aditya Prakash">
@@ -1695,7 +1691,7 @@
         <div class="container">
             <div class="fade-in">
                 <span class="section-label">Background</span>
-                <h1 class="section-title">WHO AM I</h1>
+                <h2 class="section-title">WHO AM I</h2>
                 <p class="section-subtitle">A Computer Science student driven by curiosity about how things work at a
                     fundamental level.</p>
             </div>
@@ -2293,11 +2289,13 @@
                 <div>
                     <form
                         class="contact-form-inner"
-                        action="https://formsubmit.co/prakashaditya2709@gmail.com"
+                        action="https://formsubmit.co/el/muvude"
                         method="POST"
                     >
-
-                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_captcha" value="true">
+                        <input type="text" name="_honey" style="display:none" tabindex="-1">
+                        <input type="hidden" name="_subject" value="New message from portfolio">
+                        <input type="hidden" name="_next" value="https://adityap-codes07.github.io/">
 
                         <div class="form-field">
                             <label for="cf-name">Name</label>
@@ -2465,12 +2463,19 @@
         const statObs = new IntersectionObserver(function (entries) {
             entries.forEach(function (e) {
                 if (e.isIntersecting) {
-                    document.querySelectorAll('.counter').forEach(function (el) {
-                        animateCounter(el, parseInt(el.dataset.target), false);
-                    });
-                    document.querySelectorAll('.counter-float').forEach(function (el) {
-                        animateCounter(el, parseFloat(el.dataset.target), true);
-                    });
+                    
+                    if (!prefersReduced) {
+                        document.querySelectorAll('.counter').forEach(function (el) {
+                            animateCounter(el, parseInt(el.dataset.target), false);
+                        });
+                        document.querySelectorAll('.counter-float').forEach(function (el) {
+                            animateCounter(el, parseFloat(el.dataset.target), true);
+                        });
+                    } else {
+                        document.querySelectorAll('.counter').forEach(function(el) { el.textContent = el.dataset.target; });
+                        document.querySelectorAll('.counter-float').forEach(function(el) { el.textContent = el.dataset.target; });
+                    }
+        
                     statObs.disconnect();
                 }
             });
@@ -2494,12 +2499,15 @@
             });
         });
 
-        /* ─── Hero canvas animation ─────────────────────────────────── */
+       /* ─── Hero canvas animation ─────────────────────────────────── */
         (function () {
             const canvas = document.getElementById('hero-canvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
             const W = canvas.width, H = canvas.height;
+
+            // Check user motion preferences upfront
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
             // Simple neural network visualization
             const layers = [3, 5, 4, 2];
@@ -2531,6 +2539,11 @@
             buildNet();
 
             function draw() {
+                if (document.hidden) {
+                    requestAnimationFrame(draw);
+                    return;
+                }
+                
                 ctx.clearRect(0, 0, W, H);
                 const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
                 const edgeColor = isDark ? 'rgba(201,144,154,' : 'rgba(180,120,130,';
@@ -2549,21 +2562,24 @@
                     ctx.stroke();
                 });
 
-                // Animate a signal
-                const signalEdgeIdx = Math.floor(t / 8) % edges.length;
-                const se = edges[signalEdgeIdx];
-                if (se) {
-                    const p = (t % 8) / 8;
-                    const sx = se.a.x + (se.b.x - se.a.x) * p;
-                    const sy = se.a.y + (se.b.y - se.a.y) * p;
-                    ctx.beginPath();
-                    ctx.arc(sx, sy, 3, 0, Math.PI * 2);
-                    ctx.fillStyle = nodeColor;
-                    ctx.fill();
+                // Animate a signal (Only draw moving signals if motion is allowed)
+                if (!prefersReduced) {
+                    const signalEdgeIdx = Math.floor(t / 8) % edges.length;
+                    const se = edges[signalEdgeIdx];
+                    if (se) {
+                        const p = (t % 8) / 8;
+                        const sx = se.a.x + (se.b.x - se.a.x) * p;
+                        const sy = se.a.y + (se.b.y - se.a.y) * p;
+                        ctx.beginPath();
+                        ctx.arc(sx, sy, 3, 0, Math.PI * 2);
+                        ctx.fillStyle = nodeColor;
+                        ctx.fill();
+                    }
                 }
 
                 // Nodes
                 nodes.forEach(function (n) {
+                    // If reduced motion is true, make pulse/active state frozen at t = 0 values
                     const isActive = n.layer === Math.floor(t / 12) % layers.length;
                     const r = isActive ? 8 + pulse * 3 : 7;
                     ctx.beginPath();
@@ -2582,9 +2598,13 @@
                     }
                 });
 
-                t++;
-                requestAnimationFrame(draw);
+                // Only schedule the next animation frame if motion is allowed
+                if (!prefersReduced) {
+                    t++;
+                    requestAnimationFrame(draw);
+                }
             }
+            // Run draw once. If prefersReduced is true, it paints a static layout and stops.
             draw();
         })();
 
