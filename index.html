@@ -2295,7 +2295,7 @@
                         <input type="hidden" name="_captcha" value="true">
                         <input type="text" name="_honey" style="display:none" tabindex="-1">
                         <input type="hidden" name="_subject" value="New message from portfolio">
-                        <input type="hidden" name="_next" value="https://adityap-codes07.github.io/">
+                        <input type="hidden" name="_next" value="https://adityap-codes07.github.io/adityaprakash.github.io/">
 
                         <div class="form-field">
                             <label for="cf-name">Name</label>
@@ -2388,6 +2388,10 @@
     </div>
 
     <script>
+
+        // Check user motion preferences upfront
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         /* ─── Theme ─────────────────────────────────────────────────── */
         (function () {
             const saved = localStorage.getItem('theme');
@@ -2505,9 +2509,6 @@
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
             const W = canvas.width, H = canvas.height;
-
-            // Check user motion preferences upfront
-            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
             // Simple neural network visualization
             const layers = [3, 5, 4, 2];
